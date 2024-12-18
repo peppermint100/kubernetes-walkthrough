@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    environment: test # labels를 기준으로 Deployments는 replicaSet을 replicaSet은 pod을 관리하게 된다.
+  name: testdeploy # pod의 이름 prefix가 된다
+spec:
+  replicas: 3 # 3개의 pod 유지
+  selector:
+    matchLabels:
+      environment: test
+  minReadySeconds: 10
+  strategy:
+    rollingUpdate:
+      maxSurge: 1 # update시 몇 개의 새로운 pod를 추가할지
+      maxUnavailable: 0 # 몇 개의 pod이 unavailable해야 update를 완료 처리하는지
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        environment: test
+    spec:
+      containers:
+      - image: nginx:1.17
+        name: nginx
+
