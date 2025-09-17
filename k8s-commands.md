@@ -56,4 +56,48 @@ kubectl create deployment webapp --image=kodekloud/webapp-color --replicas=3
 kubectl run custom-nginx --image=nginx --port=8080
 ```
 - container-port를 8080으로 주는 파드 실행
-- 
+
+
+```
+kubectl create configmap webapp-config-map \
+--from-literal=APP_COLOR=darkblue \
+--from-literal=APP_OTHER=disregard
+```
+- 선언적인 방식으로 configmap 만들기
+
+```
+kubectl create secret generic db-secret --from-literal=DB_Host=sql01 --from-literal=DB_User=root --from-literal=DB_Password=password123 --dry-ru
+n=client -o yaml > db-secret.yaml
+```
+- generic 타입으로 secret 만들기 
+
+```
+kubectl describe node <노드이름>
+```
+- 노드의 정보 확인
+
+```
+kubectl taint nodes <노드이름> <Key>=<Value>:<Rules>
+```
+- 노드에 taint 생성
+- Rules
+	- NoSchedule
+	- PreferNoSchedule
+	- NoExecute
+
+```
+kubectl get pod -o wide
+```
+- pod들의 자세한 정보를 볼 수 있다. IP, 배치된 노드 확인 
+
+```
+kubectl taint nodes <노드이름> <키>=<값>:효과-
+```
+`taint node` 명령어 마지막에 `-` 기호를 추가하여 존재하는 taint를 삭제할 수 있다.
+
+```
+kubectl label node <노드이름> <키>=<값>
+kubectl label node <노드이름> <키>=<값> --override # (기존의 레이블 값을 덮어 씌우는 경우)
+kubectl label nodes <노드이름> <키>- # 레이블을 삭제하는 경우
+```
+노드에 label을 설정
