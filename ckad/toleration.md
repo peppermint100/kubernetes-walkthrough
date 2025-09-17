@@ -1,0 +1,24 @@
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: bee
+  name: bee
+spec:
+  containers:
+  - image: nginx
+    name: bee
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+  tolerations:
+  - key: "spray"
+    operator: "Equal"
+    value: "mortein"
+    effect: "NoSchedule"
+status: {}
+```
+
+spec 하위에 tolerations를 작성한다. 
